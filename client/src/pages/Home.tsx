@@ -403,6 +403,26 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
         ))}
       </div>
 
+      {/* Everyday-life example */}
+      {chapter.example && (
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: 0.12 }}
+          className="example-box my-7"
+        >
+          <div className="example-label">
+            <span aria-hidden="true">◈</span> Aus dem Alltag
+          </div>
+          <p
+            className="text-[var(--color-slate-deep)] leading-relaxed"
+            style={{ fontFamily: "'Source Serif 4', serif", fontSize: '1.0625rem' }}
+          >
+            {chapter.example}
+          </p>
+        </motion.div>
+      )}
+
       {/* Interactive visual */}
       {renderInteractiveExtra()}
 
