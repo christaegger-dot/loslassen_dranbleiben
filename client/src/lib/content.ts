@@ -2,7 +2,7 @@
 // CONTENT DATA: Loslassen und Dranbleiben
 // Vollständige Gesamtfassung — 1:1 aus der verbindlichen Vorlage
 // Schweizer Orthografie: ss statt ß
-// «…» für Hervorhebungen, „…" für direkte Selbstaussagen
+// «…» für Hervorhebungen, „…“ für direkte Selbstaussagen
 // Halbgeviertstrich — mit Leerzeichen
 // ============================================================
 
@@ -140,7 +140,7 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Bei Angehörigen richtet sich dieser Schmerz oft nach innen, als Selbstvorwurf. Es können Gedanken entstehen wie: „Habe ich als Mutter etwas falsch gemacht?" „Liegt es an mir?" „Ich tue zu wenig." „Ich müsste geduldiger, stärker, belastbarer sein." Manchmal kommt von aussen der Eindruck dazu, beurteilt zu werden — als trage man Schuld an der Erkrankung oder an ihrem Verlauf.',
+        text: 'Bei Angehörigen richtet sich dieser Schmerz oft nach innen, als Selbstvorwurf. Es können Gedanken entstehen wie: „Habe ich als Mutter etwas falsch gemacht?“ „Liegt es an mir?“ „Ich tue zu wenig.“ „Ich müsste geduldiger, stärker, belastbarer sein.“ Manchmal kommt von aussen der Eindruck dazu, beurteilt zu werden — als trage man Schuld an der Erkrankung oder an ihrem Verlauf.',
       },
       {
         type: 'paragraph',
@@ -180,7 +180,7 @@ export const chapters: Chapter[] = [
     content: [
       {
         type: 'paragraph',
-        text: 'Viele Menschen werfen sich vor, dass sie nicht loslassen können. Sie denken: „Ich müsste doch längst weiter sein." Oder: „Eigentlich weiss ich, dass ich etwas ändern müsste, aber innerlich komme ich nicht davon los."',
+        text: 'Viele Menschen werfen sich vor, dass sie nicht loslassen können. Sie denken: „Ich müsste doch längst weiter sein.“ Oder: „Eigentlich weiss ich, dass ich etwas ändern müsste, aber innerlich komme ich nicht davon los.“',
       },
       {
         type: 'paragraph',
@@ -223,7 +223,7 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Vielleicht hören Sie von aussen seit Jahren denselben Rat: „Du musst dich besser abgrenzen." „Du musst mehr auf dich achten." „Du kannst doch nicht dein ganzes Leben danach ausrichten." Diese Sätze sind meist gut gemeint. Und trotzdem fühlen sie sich oft falsch an — nicht, weil Sie den Punkt nicht verstehen würden, sondern weil der Rat an Ihrer eigentlichen Erfahrung vorbeigeht.',
+        text: 'Vielleicht hören Sie von aussen seit Jahren denselben Rat: „Du musst dich besser abgrenzen.“ „Du musst mehr auf dich achten.“ „Du kannst doch nicht dein ganzes Leben danach ausrichten.“ Diese Sätze sind meist gut gemeint. Und trotzdem fühlen sie sich oft falsch an — nicht, weil Sie den Punkt nicht verstehen würden, sondern weil der Rat an Ihrer eigentlichen Erfahrung vorbeigeht.',
       },
       {
         type: 'heading',
@@ -259,7 +259,7 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Diese beiden Dinge sehen von aussen manchmal ähnlich aus — eine Pause, ein Nein, eine Grenze, ein Rückzug für ein paar Stunden. Aber ihre innere Bedeutung ist eine völlig andere. Abgrenzung sagt: „Ich schütze mich vor dir." Selbsterhalt sagt: „Ich sorge dafür, dass ich bei dir bleiben kann, ohne selbst unterzugehen."',
+        text: 'Diese beiden Dinge sehen von aussen manchmal ähnlich aus — eine Pause, ein Nein, eine Grenze, ein Rückzug für ein paar Stunden. Aber ihre innere Bedeutung ist eine völlig andere. Abgrenzung sagt: „Ich schütze mich vor dir.“ Selbsterhalt sagt: „Ich sorge dafür, dass ich bei dir bleiben kann, ohne selbst unterzugehen.“',
       },
       {
         type: 'paragraph',
@@ -271,7 +271,7 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Damit verschiebt sich auch die Frage. Sie lautet nicht mehr: „Wie grenze ich mich ab?" Sondern eher: Was brauche ich, damit ich das durchhalten kann, ohne zu zerbrechen? Woher kommt die Kraft, um morgen wieder da zu sein? Wer trägt mich, während ich trage? Das sind keine egoistischen Fragen. Es sind die Fragen, die das Dranbleiben langfristig sichern.',
+        text: 'Damit verschiebt sich auch die Frage. Sie lautet nicht mehr: „Wie grenze ich mich ab?“ Sondern eher: Was brauche ich, damit ich das durchhalten kann, ohne zu zerbrechen? Woher kommt die Kraft, um morgen wieder da zu sein? Wer trägt mich, während ich trage? Das sind keine egoistischen Fragen. Es sind die Fragen, die das Dranbleiben langfristig sichern.',
       },
       {
         type: 'heading',
@@ -311,7 +311,7 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Diese Einsamkeit ist eine eigene Belastung. Sie ist nicht eingebildet, und sie ist nicht selbstverschuldet. Wenn ein gut gemeinter Rat wie „grenz dich doch ab" sich nie richtig angefühlt hat, liegt das nicht an mangelndem Verständnis Ihrerseits. Es liegt daran, dass solche Ratschläge an der Tiefe der Bindung vorbeigehen.',
+        text: 'Diese Einsamkeit ist eine eigene Belastung. Sie ist nicht eingebildet, und sie ist nicht selbstverschuldet. Wenn ein gut gemeinter Rat wie „grenz dich doch ab“ sich nie richtig angefühlt hat, liegt das nicht an mangelndem Verständnis Ihrerseits. Es liegt daran, dass solche Ratschläge an der Tiefe der Bindung vorbeigehen.',
       },
       {
         type: 'quote',
@@ -339,7 +339,7 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Das macht etwas mit Menschen. Es ist schwer, etwas zu betrauern, das nicht abgeschlossen ist. Es ist schwer, zur Ruhe zu kommen, wenn sich die Lage morgen wieder ändern kann. Und es ist schwer, sich selbst Trauer zu erlauben, solange der andere doch lebt und „es ja auch wieder besser werden kann".',
+        text: 'Das macht etwas mit Menschen. Es ist schwer, etwas zu betrauern, das nicht abgeschlossen ist. Es ist schwer, zur Ruhe zu kommen, wenn sich die Lage morgen wieder ändern kann. Und es ist schwer, sich selbst Trauer zu erlauben, solange der andere doch lebt und „es ja auch wieder besser werden kann“.',
       },
       {
         type: 'quote',
@@ -370,11 +370,11 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Akzeptanz bedeutet nicht: „Es ist gut so." Akzeptanz bedeutet eher: „Es ist gerade so. Und ich höre auf, meine ganze Kraft gegen die Tatsache zu richten, dass es gerade so ist."',
+        text: 'Akzeptanz bedeutet nicht: „Es ist gut so.“ Akzeptanz bedeutet eher: „Es ist gerade so. Und ich höre auf, meine ganze Kraft gegen die Tatsache zu richten, dass es gerade so ist.“',
       },
       {
         type: 'paragraph',
-        text: 'Das ist ein grosser Unterschied. Resignation sagt: „Es bringt sowieso nichts." Akzeptanz sagt: „Ich erkenne an, was ich gerade nicht ändern kann. Und gerade dadurch wird Kraft frei für das, was möglich ist."',
+        text: 'Das ist ein grosser Unterschied. Resignation sagt: „Es bringt sowieso nichts.“ Akzeptanz sagt: „Ich erkenne an, was ich gerade nicht ändern kann. Und gerade dadurch wird Kraft frei für das, was möglich ist.“',
       },
       {
         type: 'paragraph',
@@ -449,7 +449,7 @@ export const chapters: Chapter[] = [
       {
         type: 'steps',
         steps: [
-          { title: 'Benennen', text: '„Ich merke Angst." „Ich spüre Wut." „Da ist Trauer." „Ich schäme mich gerade."' },
+          { title: 'Benennen', text: '„Ich merke Angst.“ „Ich spüre Wut.“ „Da ist Trauer.“ „Ich schäme mich gerade.“' },
           { title: 'Im Körper verorten', text: 'Wo spüren Sie es? Brust, Bauch, Hals, Schultern, Kopf, Hände?' },
           { title: 'Intensität einschätzen', text: 'Auf einer Skala von 0 bis 10: Wie stark ist das Gefühl gerade?' },
           { title: 'Dosieren', text: 'Wenn es zu stark ist: aufstehen, Wasser trinken, atmen, jemanden kontaktieren, sich orientieren, etwas Körperliches tun.' },
@@ -577,7 +577,7 @@ export const chapters: Chapter[] = [
     content: [
       {
         type: 'paragraph',
-        text: 'Nach Umbrüchen oder unter dauerhafter Belastung fühlen sich Menschen oft ausgeliefert. Gerade unfreiwillige Situationen können das Gefühl erzeugen: „Ich kann nichts tun." Diese Hilflosigkeit ist schwer auszuhalten.',
+        text: 'Nach Umbrüchen oder unter dauerhafter Belastung fühlen sich Menschen oft ausgeliefert. Gerade unfreiwillige Situationen können das Gefühl erzeugen: „Ich kann nichts tun.“ Diese Hilflosigkeit ist schwer auszuhalten.',
       },
       {
         type: 'paragraph',
@@ -606,7 +606,7 @@ export const chapters: Chapter[] = [
     content: [
       {
         type: 'paragraph',
-        text: 'Wenn das Alte bricht oder eine Belastung lange anhält, entsteht oft eine Leere. Die Frage „Was soll ich jetzt tun?" ist dann nicht nur praktisch, sondern existenziell.',
+        text: 'Wenn das Alte bricht oder eine Belastung lange anhält, entsteht oft eine Leere. Die Frage „Was soll ich jetzt tun?“ ist dann nicht nur praktisch, sondern existenziell.',
       },
       {
         type: 'paragraph',
@@ -618,11 +618,11 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Ein Ziel könnte sein: „Mein Sohn soll wieder gesund werden." Das können Sie nicht erzwingen. Ein Wert könnte sein: „Ich möchte verlässlich und liebevoll an seiner Seite sein, so gut ich kann." Das ist möglich, unabhängig vom Verlauf der Erkrankung.',
+        text: 'Ein Ziel könnte sein: „Mein Sohn soll wieder gesund werden.“ Das können Sie nicht erzwingen. Ein Wert könnte sein: „Ich möchte verlässlich und liebevoll an seiner Seite sein, so gut ich kann.“ Das ist möglich, unabhängig vom Verlauf der Erkrankung.',
       },
       {
         type: 'paragraph',
-        text: 'Ein Ziel könnte sein: „Ich will keine Angst mehr haben." Ein Wert könnte sein: „Ich möchte fürsorglich mit mir umgehen, auch wenn die Angst da ist." Ein Ziel könnte sein: „Alles soll wieder so werden wie früher." Ein Wert könnte sein: „Ich möchte verbunden, klar und ehrlich handeln — in der Situation, wie sie ist."',
+        text: 'Ein Ziel könnte sein: „Ich will keine Angst mehr haben.“ Ein Wert könnte sein: „Ich möchte fürsorglich mit mir umgehen, auch wenn die Angst da ist.“ Ein Ziel könnte sein: „Alles soll wieder so werden wie früher.“ Ein Wert könnte sein: „Ich möchte verbunden, klar und ehrlich handeln — in der Situation, wie sie ist.“',
       },
       {
         type: 'paragraph',
@@ -701,7 +701,7 @@ export const chapters: Chapter[] = [
       },
       {
         type: 'paragraph',
-        text: 'Eine Frage, die dabei helfen kann, ist nicht: „Was will ich statt dieser Beziehung?" Sondern: „Was von mir gibt es noch — ausser der Sorge? Welches Stück meines eigenen Lebens hat es verdient, weiterzubestehen?"',
+        text: 'Eine Frage, die dabei helfen kann, ist nicht: „Was will ich statt dieser Beziehung?“ Sondern: „Was von mir gibt es noch — ausser der Sorge? Welches Stück meines eigenen Lebens hat es verdient, weiterzubestehen?“',
       },
       {
         type: 'paragraph',
