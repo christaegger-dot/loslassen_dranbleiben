@@ -13,6 +13,7 @@ export interface Chapter {
   subtitle?: string;
   content: Section[];
   keyQuote?: string;
+  example?: string;
   isIntro?: boolean;
 }
 
@@ -59,6 +60,8 @@ export const chapters: Chapter[] = [
     number: 1,
     title: 'Warum Veränderung so verunsichern kann',
     keyQuote: 'Festhalten ist nicht einfach Schwäche. Häufig ist es ein Schutzversuch. Die Psyche versucht, Sicherheit zu bewahren, auch wenn diese Sicherheit eng geworden ist.',
+    example:
+      'Seit Monaten sagen Sie sich, dass eigentlich etwas anders werden müsste — und merken doch, wie sehr Sie am Vertrauten hängen, selbst wenn es zehrt. Das ist kein Trotz und keine Bequemlichkeit: Das Bekannte gibt wenigstens Halt, Sie wissen, woran Sie sind. Vielleicht hilft die Frage, was an Ihrer jetzigen Art, mit allem umzugehen, Ihnen Sicherheit gibt — und was davon enger geworden ist, als Ihnen guttut.',
     content: [
       {
         type: 'paragraph',
@@ -87,6 +90,8 @@ export const chapters: Chapter[] = [
     number: 2,
     title: 'Das innere Tauziehen: Sicherheit und Entfaltung',
     keyQuote: 'Suche ich gerade Schutz, weil ich ihn wirklich brauche — oder halte ich an etwas fest, das mich langfristig kleiner macht?',
+    example:
+      'Sie haben sich zum ersten Mal seit Wochen mit einer Freundin verabredet. Kurz davor meldet sich Ihr Sohn, dem es gerade schlecht geht, und sofort ist der Reflex da: absagen, erreichbar bleiben. Beides ist verständlich — die Sorge und der Wunsch nach einem eigenen Abend. Die hilfreiche Frage ist dann nicht «hingehen oder bleiben», sondern: Braucht dieser Moment wirklich meine Anwesenheit — oder ist es die Gewohnheit, immer verfügbar zu sein?',
     content: [
       {
         type: 'paragraph',
@@ -122,6 +127,8 @@ export const chapters: Chapter[] = [
     id: 'selbstwert',
     number: 3,
     title: 'Wenn Wandel den Selbstwert trifft',
+    example:
+      'Bei einem Familienfest fragt eine Verwandte beiläufig, ob Sie „es früher nicht hätten merken müssen“. Der Satz hallt tagelang nach und legt sich auf einen Vorwurf, den Sie sich längst selbst machen. Doch dass die Frage so trifft, sagt nichts über Ihre Schuld — sie zeigt, wie nah Ihnen das geht und wie sehr Sie sich sorgen. Ihr Wert als Mensch hängt nicht am Verlauf einer Krankheit, die Sie nicht verschuldet haben.',
     content: [
       {
         type: 'paragraph',
@@ -168,6 +175,8 @@ export const chapters: Chapter[] = [
     number: 4,
     title: 'Festhalten als Schutzversuch',
     keyQuote: 'Manchmal hält nicht nur die Situation selbst fest, sondern auch die verständliche Angst, etwas loszulassen, das lange Sicherheit, Hoffnung oder Identität bedeutet hat.',
+    example:
+      'Sie ertappen sich dabei, wie Sie an der Vorstellung festhalten, wie alles wieder werden könnte wie früher. Andere sagen, Sie sollten das endlich loslassen, und Sie werfen es sich selbst vor. Aber Sie halten nicht aus Schwäche fest, sondern weil dieses Bild lange Halt, Hoffnung und Liebe bedeutet hat. Loslassen beginnt hier nicht mit Druck, sondern mit dem Verstehen, wofür das Festhalten einmal gut war.',
     content: [
       {
         type: 'paragraph',
@@ -201,6 +210,8 @@ export const chapters: Chapter[] = [
     title: 'Wenn Loslassen nicht das Richtige ist',
     subtitle: 'Über Loyalität, Bindung und Selbsterhalt',
     keyQuote: 'Wer einem leidenden Menschen verbunden bleibt, hat in der Regel kein Abgrenzungsproblem. Sondern eine Bindung. Und Bindung lässt sich nicht wie ein schlechter Vertrag kündigen.',
+    example:
+      'Seit Jahren hören Sie denselben Rat: „Du musst dich endlich abgrenzen.“ Und jedes Mal fühlt er sich falsch an, weil Sie den Menschen, den Sie lieben, nicht zur Gefahr erklären wollen, vor der Sie sich schützen müssen. Vielleicht bleiben Sie nicht, weil Sie sich nicht lösen können, sondern aus Überzeugung. Dann passt eine andere Frage besser: Was brauche ich, damit ich an seiner Seite bleiben kann, ohne selbst unterzugehen?',
     content: [
       {
         type: 'paragraph',
@@ -350,6 +361,8 @@ export const chapters: Chapter[] = [
     title: 'Akzeptanz',
     subtitle: 'Die Realität anerkennen, ohne sie gutzuheissen',
     keyQuote: 'Ich muss nicht gutheissen, wie es gerade ist. Aber ich kann aufhören, meine Kraft gegen die Tatsache zu richten, dass es gerade so ist.',
+    example:
+      'Jahrelang haben Sie innerlich dagegen angekämpft, dass Ihr Partner Hilfe ablehnt — und jeder Tag begann mit demselben Ringen. Akzeptanz hiesse hier nicht, das gutzuheissen oder ihn aufzugeben. Sie hiesse, anzuerkennen, dass Sie diese Entscheidung gerade nicht erzwingen können. Erst wenn die Kraft nicht mehr in diesem aussichtslosen Kampf gebunden ist, wird sie frei — für Ihre Erholung und für das, was heute wirklich möglich ist.',
     content: [
       {
         type: 'paragraph',
@@ -410,6 +423,8 @@ export const chapters: Chapter[] = [
     title: 'Gefühle',
     subtitle: 'Wahrnehmen, benennen, dosieren',
     keyQuote: 'Gefühle müssen nicht sofort gelöst werden. Sie dürfen zuerst bemerkt, benannt und gehalten werden.',
+    example:
+      'Mitten im Einkaufen steigt plötzlich eine Welle hoch — Wut, Angst und Erschöpfung zugleich, ohne klaren Auslöser. Der erste Impuls ist, sie wegzudrücken und weiterzufunktionieren. Es kann mehr helfen, kurz innezuhalten und still zu benennen: „Da ist gerade Angst, und ich spüre sie im Bauch.“ Das Gefühl muss nicht sofort gelöst werden — oft reicht im Moment, es zu bemerken und auszuhalten.',
     content: [
       {
         type: 'paragraph',
@@ -452,6 +467,8 @@ export const chapters: Chapter[] = [
     number: 8,
     title: 'Wenn Trauer keinen Abschluss findet',
     keyQuote: 'Ich muss nicht jeden Tag gleich weit sein. Ich darf pendeln. Ich darf um einen Menschen trauern, der noch da ist — und trotzdem weiterleben.',
+    example:
+      'An manchen Tagen vermissen Sie den Menschen, der Ihr Kind einmal war, so sehr, dass es wie Trauer schmerzt — obwohl es lebt und neben Ihnen sitzt. Am nächsten Tag lachen Sie über etwas und haben gleich darauf ein schlechtes Gewissen, als wäre Freude ein Verrat. Beides darf sein. Dieses Hin und Her ist kein Rückfall, sondern die Art, wie man mit einem Verlust lebt, der keinen Abschluss findet.',
     content: [
       {
         type: 'paragraph',
@@ -500,6 +517,8 @@ export const chapters: Chapter[] = [
     number: 9,
     title: 'Kontrolle, Einfluss und Sorge',
     keyQuote: 'Was kann ich nicht ändern? Was kann ich beeinflussen? Was ist heute mein kleiner kontrollierbarer Schritt?',
+    example:
+      'Nachts liegen Sie wach und gehen durch, was alles geschehen könnte — Dinge, die Sie ohnehin nicht in der Hand haben. Am Morgen sind Sie erschöpft, bevor der Tag begonnen hat. Es kann entlasten, die Sorge bewusst von dem zu trennen, was heute wirklich in Ihrer Hand liegt: ein Glas Wasser, ein Anruf, eine kurze Pause. Nicht alles — nur der eine kleine Schritt, den Sie heute tatsächlich gehen können.',
     content: [
       {
         type: 'paragraph',
@@ -553,6 +572,8 @@ export const chapters: Chapter[] = [
     title: 'Selbstwirksamkeit',
     subtitle: 'Wieder erleben, dass ich handeln kann',
     keyQuote: 'Ich muss nicht mein ganzes Leben heute lösen. Ich brauche nur den nächsten stimmigen Schritt.',
+    example:
+      'Sie hatten sich vorgenommen, «endlich alles zu regeln» — und sind an der Grösse des Vorhabens wieder gescheitert, was die Ohnmacht nur vergrössert hat. Vielleicht liegt der Unterschied nicht im Willen, sondern in der Grösse des Schritts. Ein einziger Anruf, zehn Minuten Ordnung, ein ausgesprochenes Nein zählen mehr, als sie scheinen. Jeder gelungene kleine Schritt gibt die Erfahrung zurück: Ich bin dem nicht völlig ausgeliefert.',
     content: [
       {
         type: 'paragraph',
@@ -580,6 +601,8 @@ export const chapters: Chapter[] = [
     id: 'werte',
     number: 11,
     title: 'Werte als Kompass',
+    example:
+      'Den Wunsch „mein Sohn soll wieder gesund werden“ tragen Sie jeden Tag — und doch liegt sein Eintreffen nicht in Ihrer Hand. Was in Ihrer Hand liegt, ist die Art, wie Sie an seiner Seite stehen: verlässlich, liebevoll, ehrlich, so gut Sie können. Das eine ist ein Ziel, das andere ein Wert. Werte geben gerade dann Richtung, wenn der Ausgang über lange Zeit ungewiss bleibt.',
     content: [
       {
         type: 'paragraph',
@@ -631,6 +654,8 @@ export const chapters: Chapter[] = [
     number: 12,
     title: 'Dranbleiben ohne Selbstoptimierungsdruck',
     keyQuote: 'Ich darf langsam gehen. Ich darf Pausen machen. Entscheidend ist nicht Tempo, sondern Richtung.',
+    example:
+      'Sie haben eine schwere Woche hinter sich, die guten Vorsätze sind liegen geblieben, und prompt ist der Gedanke da: „Ich versage sogar daran.“ Doch Dranbleiben heisst nicht, ohne Pause stark zu sein. Es heisst, nach einer Unterbrechung einfach wieder anzufangen — heute, mit einem kleinen Schritt. Entscheidend ist nicht das Tempo, sondern die Richtung.',
     content: [
       {
         type: 'paragraph',
@@ -659,6 +684,8 @@ export const chapters: Chapter[] = [
     number: 13,
     title: 'Ein eigenes Stück Leben behalten',
     keyQuote: 'Ein eigenes Stück Leben zu behalten heisst nicht, sich vom anderen abzuwenden. Es heisst, nicht vollständig in der Sorge zu verschwinden.',
+    example:
+      'Eine Freundin fragt, wie es Ihnen geht — und Sie merken, dass Sie nur noch vom erkrankten Menschen erzählen können. Das Eigene haben Sie Stück für Stück verschoben, immer auf «später». Vielleicht lohnt sich die Frage: Was von mir gibt es noch ausser der Sorge — ein Abend, ein Kontakt, eine alte Freude —, das es verdient, weiterzubestehen? Ein Stück eigenes Leben zu behalten heisst nicht, sich abzuwenden, sondern die Kraft zu bewahren, die das Dranbleiben trägt.',
     content: [
       {
         type: 'paragraph',
@@ -698,6 +725,8 @@ export const chapters: Chapter[] = [
     id: 'zusammen',
     number: 14,
     title: 'Loslassen und Dranbleiben gehören zusammen',
+    example:
+      'Sie geben den Kampf dagegen auf, dass Ihre Tochter andere Entscheidungen trifft, als Sie sich wünschen — und bleiben zugleich verlässlich erreichbar, wenn sie Sie braucht. Das eine ist Loslassen, das andere Dranbleiben, und beides geschieht im selben Moment. Es ist kein Widerspruch. Die Kunst liegt in der Unterscheidung: loszulassen, was Sie nicht ändern können, und verbunden zu bleiben mit dem, was Sie gestalten können.',
     content: [
       {
         type: 'paragraph',
@@ -736,6 +765,8 @@ export const chapters: Chapter[] = [
     id: 'orientierung',
     number: 15,
     title: 'Praktische Orientierung für Umbruchphasen',
+    example:
+      'Nehmen wir einen konkreten Abend: Es gab wieder einen Rückschlag, und Sie spüren, wie alles in Ihnen kreist. Sie gehen die Fragen langsam durch — was ist tatsächlich geschehen, was tut besonders weh, was liegt heute in meiner Hand, was ist mir wichtig, was wäre ein kleiner Schritt. Am Ende steht keine Lösung für alles, aber eine einzige machbare Handlung für heute Abend. Genau dafür sind diese Fragen da — nicht, um alles zu klären, sondern um wieder handlungsfähig zu werden.',
     content: [
       {
         type: 'paragraph',
@@ -777,6 +808,8 @@ export const chapters: Chapter[] = [
     id: 'unterstuetzung',
     number: 16,
     title: 'Wann professionelle Unterstützung wichtig ist',
+    example:
+      'Lange haben Sie gedacht, Sie müssten das allein schaffen — Hilfe zu holen fühlte sich an wie ein Eingeständnis von Schwäche. Dann merken Sie, dass Sie seit Wochen kaum schlafen und sich von fast allen zurückgezogen haben. Der Anruf bei einer Beratungsstelle oder einer Angehörigengruppe ist kein Scheitern, sondern Fürsorge — für sich und damit auch für den Menschen, den Sie begleiten. Manchmal braucht es ein Gegenüber, das mithilft zu sortieren, was jetzt wichtig ist.',
     content: [
       {
         type: 'paragraph',
@@ -801,6 +834,8 @@ export const chapters: Chapter[] = [
     number: 17,
     title: 'Die Weisheit der Unterscheidung',
     keyQuote: 'Gib mir die Gelassenheit, Dinge hinzunehmen, die ich nicht ändern kann, den Mut, Dinge zu ändern, die ich ändern kann, und die Weisheit, das eine vom anderen zu unterscheiden.',
+    example:
+      'An einem Tag setzen Sie eine klare Grenze, am nächsten halten Sie einfach nur aus, am dritten nehmen Sie zum ersten Mal Hilfe an. Von aussen mag das widersprüchlich wirken — in Wahrheit ist es genau diese Unterscheidung von Tag zu Tag. Weisheit ist hier kein Zustand, den man einmal erreicht und dann besitzt. Sie ist die tägliche, manchmal mühsame Übung, das eine vom anderen zu unterscheiden.',
     content: [
       {
         type: 'paragraph',
