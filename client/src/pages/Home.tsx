@@ -330,7 +330,7 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
           }
         }
       },
-      { threshold: 0.3, rootMargin: '-80px 0px -30% 0px' }
+      { threshold: 0.04, rootMargin: '-80px 0px 0px 0px' }
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
