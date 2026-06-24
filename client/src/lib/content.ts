@@ -89,7 +89,7 @@ export const chapters: Chapter[] = [
     id: 'tauziehen',
     number: 2,
     title: 'Das innere Tauziehen: Sicherheit und Entfaltung',
-    keyQuote: 'Suche ich gerade Schutz, weil ich ihn wirklich brauche — oder halte ich an etwas fest, das mich langfristig kleiner macht?',
+    keyQuote: 'Suche ich gerade Schutz, weil ich ihn wirklich brauche — oder halte ich an etwas fest, das mich langfristig einengt?',
     example:
       'Sie haben sich zum ersten Mal seit Wochen mit einer Freundin verabredet. Kurz davor meldet sich Ihr Sohn, dem es gerade schlecht geht, und sofort ist der Reflex da: absagen, erreichbar bleiben. Beides ist verständlich — die Sorge und der Wunsch nach einem eigenen Abend. Die hilfreiche Frage ist dann nicht «hingehen oder bleiben», sondern: Braucht dieser Moment wirklich meine Anwesenheit — oder ist es die Gewohnheit, immer verfügbar zu sein?',
     content: [
