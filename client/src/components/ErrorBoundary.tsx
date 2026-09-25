@@ -31,13 +31,16 @@ class ErrorBoundary extends Component<Props, State> {
               className="text-destructive mb-6 flex-shrink-0"
             />
 
-            <h2 className="text-xl mb-4">An unexpected error occurred.</h2>
+            <h2 className="text-xl mb-4">Es ist ein unerwarteter Fehler aufgetreten.</h2>
 
-            <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
-              <pre className="text-sm text-muted-foreground whitespace-break-spaces">
-                {this.state.error?.stack}
-              </pre>
-            </div>
+            {/* Stack traces are for developers only */}
+            {import.meta.env.DEV && (
+              <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
+                <pre className="text-sm text-muted-foreground whitespace-break-spaces">
+                  {this.state.error?.stack}
+                </pre>
+              </div>
+            )}
 
             <button
               onClick={() => window.location.reload()}
@@ -48,7 +51,7 @@ class ErrorBoundary extends Component<Props, State> {
               )}
             >
               <RotateCcw size={16} />
-              Reload Page
+              Seite neu laden
             </button>
           </div>
         </div>

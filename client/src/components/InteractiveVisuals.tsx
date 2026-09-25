@@ -50,7 +50,7 @@ export function ControlCircles() {
   const active = zones.find(z => z.id === activeZone);
 
   return (
-    <div className="my-8 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
+    <div className="interactive-visual my-8 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
       <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-terracotta)] mb-4">
         Interaktive Übersicht
       </p>
@@ -161,8 +161,12 @@ export function ControlCircles() {
 export function PendulumViz() {
   const [position, setPosition] = useState<'verlust' | 'center' | 'weiterleben'>('center');
 
+  // Ball positions on the arc "M 50 108 Q 150 160 250 108" (its midpoint is at y = 134),
+  // which runs below the two boxes so the ball never covers their labels
+  const ball = position === 'verlust' ? { cx: 50, cy: 108 } : position === 'weiterleben' ? { cx: 250, cy: 108 } : { cx: 150, cy: 134 };
+
   return (
-    <div className="my-8 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
+    <div className="interactive-visual my-8 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
       <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-terracotta)] mb-4">
         Das duale Prozessmodell
       </p>
@@ -174,11 +178,13 @@ export function PendulumViz() {
       </p>
 
       {/* Pendulum visual */}
-      <div className="relative h-32 mb-6">
+      <div className="relative h-40 mb-6 max-w-sm mx-auto">
         <div className="absolute inset-x-0 top-0 flex justify-between px-4">
-          <div
-            className="text-center cursor-pointer group"
+          <button
+            type="button"
+            className="text-center"
             onClick={() => setPosition('verlust')}
+            aria-pressed={position === 'verlust'}
           >
             <div
               className={`w-28 py-3 px-2 rounded-xl text-center transition-all duration-300 ${
@@ -196,11 +202,13 @@ export function PendulumViz() {
                 Schmerz · Sorge · Wut · Sehnsucht
               </p>
             </div>
-          </div>
+          </button>
 
-          <div
-            className="text-center cursor-pointer"
+          <button
+            type="button"
+            className="text-center"
             onClick={() => setPosition('weiterleben')}
+            aria-pressed={position === 'weiterleben'}
           >
             <div
               className={`w-28 py-3 px-2 rounded-xl text-center transition-all duration-300 ${
@@ -218,31 +226,29 @@ export function PendulumViz() {
                 Alltag · Ruhe · Freude · Normalität
               </p>
             </div>
-          </div>
+          </button>
         </div>
 
-        {/* Pendulum arc */}
+        {/* Pendulum arc — decorative, must not swallow clicks meant for the buttons above */}
         <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 300 120"
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          aria-hidden="true"
+          viewBox="0 0 300 150"
           preserveAspectRatio="xMidYMid meet"
         >
           <path
-            d="M 50 20 Q 150 80 250 20"
+            d="M 50 108 Q 150 160 250 108"
             fill="none"
             stroke="oklch(0.88 0.015 80)"
             strokeWidth="1.5"
             strokeDasharray="4 3"
           />
           <motion.circle
-            cx={position === 'verlust' ? 50 : position === 'weiterleben' ? 250 : 150}
-            cy={position === 'verlust' ? 20 : position === 'weiterleben' ? 20 : 75}
+            cx={ball.cx}
+            cy={ball.cy}
             r="8"
             fill="var(--color-terracotta)"
-            animate={{
-              cx: position === 'verlust' ? 50 : position === 'weiterleben' ? 250 : 150,
-              cy: position === 'verlust' ? 20 : position === 'weiterleben' ? 20 : 75,
-            }}
+            animate={ball}
             transition={{ type: 'spring', stiffness: 120, damping: 20 }}
           />
         </svg>
@@ -250,7 +256,9 @@ export function PendulumViz() {
 
       <div className="flex justify-center">
         <button
+          type="button"
           onClick={() => setPosition('center')}
+          aria-pressed={position === 'center'}
           className="text-xs text-[var(--color-warm-grey)] hover:text-[var(--color-terracotta)] transition-colors italic"
           style={{ fontFamily: "'Source Serif 4', serif" }}
         >
@@ -266,7 +274,7 @@ export function BalanceScale() {
   const [balance, setBalance] = useState(0); // -1 to 1, 0 = balanced
 
   return (
-    <div className="my-8 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
+    <div className="interactive-visual my-8 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
       <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-terracotta)] mb-4">
         Interaktive Reflexion
       </p>
@@ -288,6 +296,8 @@ export function BalanceScale() {
             max="100"
             value={balance * 100}
             onChange={(e) => setBalance(Number(e.target.value) / 100)}
+            aria-label="Zwischen Sicherheit und Entfaltung"
+            aria-valuetext={balance < -0.3 ? 'Eher Sicherheit' : balance > 0.3 ? 'Eher Entfaltung' : 'Ausgewogen'}
             className="w-full h-2 rounded-full appearance-none cursor-pointer"
             style={{
               background: `linear-gradient(to right, oklch(0.32 0.065 240 / 0.3) 0%, oklch(0.32 0.065 240 / 0.3) ${(balance + 1) / 2 * 100}%, oklch(0.72 0.085 55 / 0.3) ${(balance + 1) / 2 * 100}%, oklch(0.72 0.085 55 / 0.3) 100%)`,
@@ -336,29 +346,31 @@ export function AcceptanceSteps() {
     {
       icon: '✕',
       label: 'Nicht Akzeptanz',
-      text: 'Resignation: „Es bringt sowieso nichts."',
+      text: 'Resignation: „Es bringt sowieso nichts.“',
       color: 'oklch(0.577 0.245 27.325)',
     },
     {
       icon: '≠',
       label: 'Nicht Zustimmung',
-      text: 'Akzeptanz bedeutet nicht: „Es ist gut so."',
+      text: 'Akzeptanz bedeutet nicht: „Es ist gut so.“',
       color: 'var(--color-warm-grey)',
     },
     {
       icon: '✓',
       label: 'Akzeptanz',
-      text: '„Es ist gerade so. Ich höre auf, meine Kraft gegen die Tatsache zu richten, dass es gerade so ist."',
+      text: '„Es ist gerade so. Ich höre auf, meine Kraft gegen die Tatsache zu richten, dass es gerade so ist.“',
       color: 'var(--color-sage)',
     },
   ];
 
   return (
-    <div className="my-6 space-y-3">
+    <div className="interactive-visual my-6 space-y-3">
       {steps.map((step, i) => (
         <motion.button
           key={i}
+          type="button"
           onClick={() => setExpanded(expanded === i ? null : i)}
+          aria-expanded={expanded === i}
           className="w-full text-left p-4 rounded-xl transition-all duration-200"
           style={{
             background: expanded === i ? 'oklch(0.985 0.008 75)' : 'oklch(0.97 0.010 80)',
@@ -370,7 +382,7 @@ export function AcceptanceSteps() {
           <div className="flex items-center gap-3">
             <span
               className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-              style={{ background: `${step.color}20`, color: step.color }}
+              style={{ background: `color-mix(in oklch, ${step.color} 12%, transparent)`, color: step.color }}
             >
               {step.icon}
             </span>
@@ -380,16 +392,16 @@ export function AcceptanceSteps() {
           </div>
           <AnimatePresence>
             {expanded === i && (
-              <motion.p
+              <motion.span
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                className="mt-3 text-sm text-[var(--color-slate-deep)] opacity-80 leading-relaxed pl-11 overflow-hidden"
+                className="block mt-3 text-sm text-[var(--color-slate-deep)] opacity-80 leading-relaxed pl-11 overflow-hidden"
                 style={{ fontFamily: "'Source Serif 4', serif" }}
               >
                 {step.text}
-              </motion.p>
+              </motion.span>
             )}
           </AnimatePresence>
         </motion.button>

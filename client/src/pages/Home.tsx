@@ -7,7 +7,7 @@
  * Interactive: ControlCircles, PendulumViz, BalanceScale, AcceptanceSteps
  */
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { Fragment, useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { chapters, sources, resources, weiterlesen } from '@/lib/content';
 import { ControlCircles, PendulumViz, BalanceScale, AcceptanceSteps } from '@/components/InteractiveVisuals';
@@ -24,8 +24,13 @@ function ReadingProgress() {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
     };
+    update();
     window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
   }, []);
 
   return (
@@ -46,6 +51,7 @@ function BackToTop() {
 
   useEffect(() => {
     const update = () => setVisible(window.scrollY > 600);
+    update();
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, []);
@@ -77,23 +83,33 @@ function BackToTop() {
 function AnchorCopyButton({ chapterId }: { chapterId: string }) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2500);
+    return () => clearTimeout(timer);
+  }, [copied]);
+
+  const handleCopy = useCallback(async () => {
     const url = `${window.location.origin}${window.location.pathname}#${chapterId}`;
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      toast.success('Link kopiert', {
-        description: 'Direkt-Link zum Kapitel in der Zwischenablage.',
-        duration: 2500,
-      });
-      setTimeout(() => setCopied(false), 2500);
+    try {
+      // navigator.clipboard is undefined outside secure contexts, and writeText can be denied
+      await navigator.clipboard.writeText(url);
+    } catch {
+      toast.error('Link konnte nicht kopiert werden', { description: url, duration: 6000 });
+      return;
+    }
+    setCopied(true);
+    toast.success('Link kopiert', {
+      description: 'Direkt-Link zum Kapitel in der Zwischenablage.',
+      duration: 2500,
     });
   }, [chapterId]);
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
-      className="print-hide inline-flex items-center gap-1.5 ml-3 px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:shadow-sm active:scale-95"
+      className="print-hide inline-flex items-center gap-1.5 ml-3 px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 [@media(hover:none)]:opacity-100 hover:shadow-sm active:scale-95"
       style={{
         background: copied ? 'oklch(0.88 0.06 145 / 0.2)' : 'oklch(0.88 0.015 80 / 0.7)',
         color: copied ? 'oklch(0.38 0.09 145)' : 'var(--color-warm-grey)',
@@ -120,53 +136,56 @@ function BookmarkBanner({ onJump }: { onJump: (id: string) => void }) {
       const raw = localStorage.getItem(BOOKMARK_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (parsed?.id && parsed?.title) {
-          setSaved(parsed);
+        // Only offer chapters that still exist, with their current title
+        const chapter = chapters.find((c) => c.id === parsed?.id && !c.isIntro);
+        if (chapter) {
+          setSaved({ id: chapter.id, title: chapter.title });
           setVisible(true);
         }
       }
     } catch {}
   }, []);
 
-  if (!visible || !saved) return null;
-
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -12 }}
-        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-        className="print-hide fixed top-14 lg:top-4 left-1/2 z-50 -translate-x-1/2 flex items-center gap-3 px-5 py-3 rounded-full shadow-lg text-sm"
-        style={{
-          background: 'oklch(0.975 0.012 80 / 0.97)',
-          border: '1px solid oklch(0.88 0.015 80)',
-          backdropFilter: 'blur(12px)',
-          maxWidth: 'calc(100vw - 2rem)',
-        }}
-      >
-        <BookmarkCheck className="w-4 h-4 text-[var(--color-terracotta)] flex-shrink-0" />
-        <span className="text-[var(--color-slate-deep)]">
-          Zuletzt gelesen:{' '}
-          <span className="font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>
-            {saved.title}
+      {visible && saved && (
+        <motion.div
+          key="bookmark-banner"
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+          className="print-hide fixed top-14 lg:top-4 left-1/2 z-50 -translate-x-1/2 flex items-center gap-3 px-5 py-3 rounded-full shadow-lg text-sm"
+          style={{
+            background: 'oklch(0.975 0.012 80 / 0.97)',
+            border: '1px solid oklch(0.88 0.015 80)',
+            backdropFilter: 'blur(12px)',
+            maxWidth: 'calc(100vw - 2rem)',
+          }}
+        >
+          <BookmarkCheck className="w-4 h-4 text-[var(--color-terracotta)] flex-shrink-0" />
+          <span className="text-[var(--color-slate-deep)]">
+            Zuletzt gelesen:{' '}
+            <span className="font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>
+              {saved.title}
+            </span>
           </span>
-        </span>
-        <button
-          onClick={() => { onJump(saved.id); setVisible(false); }}
-          className="ml-1 px-3 py-1 rounded-full text-xs font-semibold text-white transition-all active:scale-95"
-          style={{ background: 'var(--color-slate-deep)' }}
-        >
-          Weiterlesen
-        </button>
-        <button
-          onClick={() => setVisible(false)}
-          className="text-[var(--color-warm-grey)] hover:text-[var(--color-slate-deep)] transition-colors"
-          aria-label="Schliessen"
-        >
-          <X className="w-3.5 h-3.5" />
-        </button>
-      </motion.div>
+          <button
+            onClick={() => { onJump(saved.id); setVisible(false); }}
+            className="ml-1 px-3 py-1 rounded-full text-xs font-semibold text-white transition-all active:scale-95"
+            style={{ background: 'var(--color-slate-deep)' }}
+          >
+            Weiterlesen
+          </button>
+          <button
+            onClick={() => setVisible(false)}
+            className="text-[var(--color-warm-grey)] hover:text-[var(--color-slate-deep)] transition-colors"
+            aria-label="Schliessen"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 }
@@ -186,6 +205,7 @@ function ChapterNav({ activeId, onSelect }: { activeId: string; onSelect: (id: s
           <li key={ch.id}>
             <button
               onClick={() => onSelect(ch.id)}
+              aria-current={activeId === ch.id ? 'location' : undefined}
               className={`nav-chapter-link w-full text-left py-1.5 text-sm transition-all duration-200 ${
                 activeId === ch.id
                   ? 'active text-[var(--color-slate-deep)] font-medium'
@@ -210,6 +230,7 @@ function ChapterNav({ activeId, onSelect }: { activeId: string; onSelect: (id: s
         <li>
           <button
             onClick={() => onSelect('quellen')}
+            aria-current={activeId === 'quellen' ? 'location' : undefined}
             className={`nav-chapter-link w-full text-left py-1.5 text-sm transition-all duration-200 ${
               activeId === 'quellen'
                 ? 'active text-[var(--color-slate-deep)] font-medium'
@@ -317,24 +338,12 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          if (!chapter.isIntro) {
-            try {
-              localStorage.setItem(BOOKMARK_KEY, JSON.stringify({
-                id: chapter.id,
-                title: chapter.title,
-              }));
-            } catch {}
-          }
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.04, rootMargin: '-80px 0px 0px 0px' }
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
-  }, [chapter.id, chapter.title, chapter.isIntro]);
+  }, []);
 
   // Inject interactive visuals at specific chapters
   const renderInteractiveExtra = () => {
@@ -348,6 +357,34 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
   // Show tree image for chapter 13 (eigenes-leben)
   const showTreeImage = chapter.id === 'eigenes-leben';
 
+  // Chapters whose prose introduces the key quote ("… lautet:") mark its spot
+  // with a 'keyQuote' section; the others show it at the end of the chapter.
+  const keyQuoteInline = chapter.content.some((s) => s.type === 'keyQuote');
+
+  const renderKeyQuote = () => chapter.keyQuote && (
+    <motion.div
+      initial={{ opacity: 0, x: -16 }}
+      animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
+      transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
+      className="print-reveal my-8 p-6 rounded-lg relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, oklch(0.32 0.065 240 / 0.05), oklch(0.72 0.085 55 / 0.08))',
+        border: '1px solid oklch(0.32 0.065 240 / 0.12)',
+      }}
+    >
+      <div
+        className="absolute left-0 top-0 bottom-0 w-1 rounded-l-lg"
+        style={{ background: 'linear-gradient(180deg, var(--color-terracotta), var(--color-gold))' }}
+      />
+      <p
+        className="text-[var(--color-slate-deep)] font-medium leading-relaxed pl-2"
+        style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.0625rem', fontStyle: 'italic' }}
+      >
+        {chapter.keyQuote}
+      </p>
+    </motion.div>
+  );
+
   return (
     <motion.section
       ref={ref}
@@ -355,7 +392,7 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
       initial={{ opacity: 0, y: 28 }}
       animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
       transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1], delay: 0.04 }}
-      className="mb-20 scroll-mt-24 chapter-section group"
+      className="print-reveal mb-20 scroll-mt-24 chapter-section group"
     >
       {/* Chapter header */}
       <div className="mb-8">
@@ -398,9 +435,11 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
 
       {/* Content */}
       <div className="prose-content">
-        {chapter.content.map((section, i) => (
-          <SectionContent key={i} section={section} />
-        ))}
+        {chapter.content.map((section, i) =>
+          section.type === 'keyQuote'
+            ? <Fragment key={i}>{renderKeyQuote()}</Fragment>
+            : <SectionContent key={i} section={section} />
+        )}
       </div>
 
       {/* Everyday-life example */}
@@ -409,7 +448,7 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
           initial={{ opacity: 0, y: 16 }}
           animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: 0.12 }}
-          className="example-box my-7"
+          className="print-reveal example-box my-7"
         >
           <div className="example-label">
             <span aria-hidden="true">◈</span> Aus dem Alltag
@@ -426,30 +465,8 @@ function ChapterCard({ chapter, index }: { chapter: import('@/lib/content').Chap
       {/* Interactive visual */}
       {renderInteractiveExtra()}
 
-      {/* Key quote */}
-      {chapter.keyQuote && (
-        <motion.div
-          initial={{ opacity: 0, x: -16 }}
-          animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
-          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
-          className="mt-8 p-6 rounded-lg relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, oklch(0.32 0.065 240 / 0.05), oklch(0.72 0.085 55 / 0.08))',
-            border: '1px solid oklch(0.32 0.065 240 / 0.12)',
-          }}
-        >
-          <div
-            className="absolute left-0 top-0 bottom-0 w-1 rounded-l-lg"
-            style={{ background: 'linear-gradient(180deg, var(--color-terracotta), var(--color-gold))' }}
-          />
-          <p
-            className="text-[var(--color-slate-deep)] font-medium leading-relaxed pl-2"
-            style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.0625rem', fontStyle: 'italic' }}
-          >
-            {chapter.keyQuote}
-          </p>
-        </motion.div>
-      )}
+      {/* Key quote (unless already shown inline) */}
+      {!keyQuoteInline && renderKeyQuote()}
 
       {/* Divider */}
       {index < chapters.length - 1 && (
@@ -477,6 +494,25 @@ function SourcesSection() {
     return () => obs.disconnect();
   }, []);
 
+  // Collapsed <details> would print only their headings — expand them for printing
+  useEffect(() => {
+    let opened: HTMLDetailsElement[] = [];
+    const expand = () => {
+      opened = Array.from(ref.current?.querySelectorAll<HTMLDetailsElement>('details:not([open])') ?? []);
+      opened.forEach((d) => { d.open = true; });
+    };
+    const restore = () => {
+      opened.forEach((d) => { d.open = false; });
+      opened = [];
+    };
+    window.addEventListener('beforeprint', expand);
+    window.addEventListener('afterprint', restore);
+    return () => {
+      window.removeEventListener('beforeprint', expand);
+      window.removeEventListener('afterprint', restore);
+    };
+  }, []);
+
   return (
     <motion.section
       ref={ref}
@@ -484,7 +520,7 @@ function SourcesSection() {
       initial={{ opacity: 0, y: 28 }}
       animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
       transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
-      className="mb-20 scroll-mt-24"
+      className="print-reveal mb-20 scroll-mt-24"
     >
       <div className="mb-8">
         <div className="flex items-baseline gap-4 mb-3">
@@ -598,7 +634,7 @@ function ChapterOverview({ onSelect }: { onSelect: (id: string) => void }) {
   ];
 
   return (
-    <div className="my-10 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
+    <div className="chapter-overview-cards my-10 p-6 rounded-2xl" style={{ background: 'oklch(0.985 0.008 75)', border: '1px solid oklch(0.88 0.015 80)' }}>
       <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-terracotta)] mb-4">
         Schnellzugriff
       </p>
@@ -633,27 +669,60 @@ export default function Home() {
   const [activeId, setActiveId] = useState('intro');
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
-  // Intersection Observer for active chapter tracking
+  // Active chapter tracking: the active section is the last one whose top has
+  // passed a reading line in the upper third of the viewport. (An intersection
+  // ratio threshold never fires for chapters much taller than the viewport.)
   useEffect(() => {
     const allIds = [...chapters.map(c => c.id), 'quellen'];
+    let frame = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '-80px 0px -40% 0px' }
-    );
+    const update = () => {
+      frame = 0;
+      const line = window.innerHeight / 3;
+      let current = allIds[0];
+      for (const id of allIds) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      setActiveId(current);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
 
-    allIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
-    return () => observer.disconnect();
+  // Remember the chapter being read (not just any chapter peeking into view)
+  useEffect(() => {
+    const chapter = chapters.find(c => c.id === activeId);
+    if (!chapter || chapter.isIntro) return;
+    try {
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify({ id: chapter.id, title: chapter.title }));
+    } catch {}
+  }, [activeId]);
+
+  // Deep links (#kapitel-id, e.g. from "Link kopieren"): the sections are
+  // rendered by React after the browser's own fragment navigation, so jump
+  // explicitly — and again once the web fonts have settled the layout.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const jump = () => document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    const frame = requestAnimationFrame(jump);
+    let cancelled = false;
+    document.fonts?.ready.then(() => { if (!cancelled) jump(); });
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   const scrollTo = useCallback((id: string) => {
@@ -792,44 +861,50 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ── Mobile Nav Toggle ── */}
-      <div
-        className="lg:hidden sticky top-0 z-50 flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]"
-        style={{ background: 'oklch(0.975 0.012 80 / 0.96)', backdropFilter: 'blur(12px)' }}
-      >
-        <span className="text-sm font-semibold text-[var(--color-slate-deep)]" style={{ fontFamily: "'Playfair Display', serif" }}>
-          {activeId === 'intro' ? 'Einleitung' : chapters.find(c => c.id === activeId)?.title || 'Kapitel'}
-        </span>
-        <button
-          onClick={() => setMobileNavOpen(!mobileNavOpen)}
-          className="p-2 rounded-lg hover:bg-[var(--color-muted)] transition-colors"
-          aria-label="Navigation öffnen"
+      {/* ── Mobile Nav Toggle + Drawer (drawer hangs directly below the bar) ── */}
+      <div className="lg:hidden sticky top-0 z-50 print-hide">
+        <div
+          className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]"
+          style={{ background: 'oklch(0.975 0.012 80 / 0.96)', backdropFilter: 'blur(12px)' }}
         >
-          {mobileNavOpen ? <X className="w-5 h-5 text-[var(--color-slate-deep)]" /> : <Menu className="w-5 h-5 text-[var(--color-slate-deep)]" />}
-        </button>
-      </div>
-
-      {/* ── Mobile Nav Drawer ── */}
-      <AnimatePresence>
-        {mobileNavOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden fixed top-[49px] left-0 right-0 z-40 border-b border-[var(--color-border)] shadow-xl overflow-y-auto"
-            style={{
-              background: 'oklch(0.975 0.012 80 / 0.98)',
-              backdropFilter: 'blur(16px)',
-              maxHeight: '70vh',
-            }}
+          <span className="text-sm font-semibold text-[var(--color-slate-deep)]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            {activeId === 'quellen'
+              ? 'Quellen & Ressourcen'
+              : chapters.find(c => c.id === activeId && !c.isIntro)?.title ?? 'Einleitung'}
+          </span>
+          <button
+            onClick={() => setMobileNavOpen(!mobileNavOpen)}
+            className="p-2 rounded-lg hover:bg-[var(--color-muted)] transition-colors"
+            aria-label={mobileNavOpen ? 'Navigation schliessen' : 'Navigation öffnen'}
+            aria-expanded={mobileNavOpen}
+            aria-controls="mobile-chapter-nav"
           >
-            <div className="px-6 py-6">
-              <ChapterNav activeId={activeId} onSelect={scrollTo} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {mobileNavOpen ? <X className="w-5 h-5 text-[var(--color-slate-deep)]" /> : <Menu className="w-5 h-5 text-[var(--color-slate-deep)]" />}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {mobileNavOpen && (
+            <motion.div
+              id="mobile-chapter-nav"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-full left-0 right-0 border-b border-[var(--color-border)] shadow-xl overflow-y-auto"
+              style={{
+                background: 'oklch(0.975 0.012 80 / 0.98)',
+                backdropFilter: 'blur(16px)',
+                maxHeight: '70vh',
+              }}
+            >
+              <div className="px-6 py-6">
+                <ChapterNav activeId={activeId} onSelect={scrollTo} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* ── Main Layout ── */}
       <div className="container py-16">
@@ -837,7 +912,8 @@ export default function Home() {
 
           {/* ── Sidebar Navigation (Desktop) ── */}
           <aside className="hidden lg:block w-56 flex-shrink-0">
-            <div className="sticky top-24">
+            {/* Capped to the viewport so the lower entries stay reachable on short screens */}
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-4">
               <ChapterNav activeId={activeId} onSelect={scrollTo} />
 
               {/* Decorative watercolor image */}
