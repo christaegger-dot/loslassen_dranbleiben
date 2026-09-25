@@ -10,6 +10,30 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Extra breakpoint for the 2-column tile grid on small phones */
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
+/* Page container. Declared as a utility so it replaces Tailwind's built-in
+   `container` (whose breakpoint max-widths would otherwise win over a
+   components-layer rule and ignore the 1200px cap). */
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: none;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 64rem) {
+    padding-inline: 3rem;
+    max-width: 1200px;
+  }
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -144,32 +168,9 @@
 }
 
 @layer components {
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
   .flex {
     min-height: 0;
     min-width: 0;
-  }
-
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 3rem;
-      padding-right: 3rem;
-      max-width: 1200px;
-    }
   }
 
   /* Chapter number display style */
@@ -353,6 +354,13 @@
     color: black !important;
   }
 
+  /* Scroll-reveal elements keep an inline opacity: 0 until they have been
+     scrolled into view — force them visible so no chapter prints blank. */
+  .print-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   /* Full-width single-column layout */
   .print-layout {
     display: block !important;
@@ -444,12 +452,5 @@
     margin-bottom: 2cm;
     padding-bottom: 1cm;
     border-bottom: 2pt solid #b85c38;
-  }
-}
-
-/* ── xs breakpoint (480px) for 2-col tile grid on small phones ── */
-@media (min-width: 480px) {
-  .xs\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
